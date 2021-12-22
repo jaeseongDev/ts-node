@@ -1,15 +1,19 @@
-import express from "express";
+import express from 'express'
 import config from "config";
+import log from "./logger";
 
 const port = config.get("port") as number;
 const host = config.get("host") as string;
 
-// const app = express()
+const app = express()
 
-// app.get('/', (req, res, next) => {
-//   res.send('Hello')
-// })
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// app.listen(8080, () => {
-//     console.log('Server running')
-// })
+app.get('/', (req, res, next) => {
+  res.send('Hello')
+})
+
+app.listen(port, host, () => {
+    log.info(`Server listening at http://${host}:${port}`)
+})
